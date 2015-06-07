@@ -42,6 +42,15 @@ module Enumerable
       	false
       end
 
+      def my_none?
+      	my_each do |element|
+      		if yield(element)
+      			return false
+      		end
+      	end
+      	true
+      end
+
 end
 
 test_array.my_each {|x| puts x * 10}
@@ -54,4 +63,5 @@ p test_array.my_all? {|num| num.even?}
 
 p test_array.my_any? {|num| num.even?}
 
+p test_array.my_none? {|num| num == 3}
 
