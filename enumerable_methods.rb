@@ -18,8 +18,16 @@ module Enumerable
       	end
       end
 
+      def my_select
+      	return_array = []
+      	self.my_each {|num| return_array << num if yield(num)}
+      	return_array
+      end
+
 end
 
 test_array.my_each {|x| puts x * 10}
 
 test_array.my_each_with_index {|x, y| puts "Item: #{x}, Item Index: #{y}"}
+
+p test_array.my_select {|num| num.even?}
