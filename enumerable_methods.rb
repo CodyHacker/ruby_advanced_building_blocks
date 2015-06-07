@@ -63,21 +63,23 @@ module Enumerable
 		items_counted
       end
 
+      def my_map
+      	return_array = []
+      	my_each {|element| return_array << yield(element)}
+      	return_array
+      end
+
 end
 
 test_array = [1,2,3,4,5,3]
-
 test_array.my_each {|x| puts x * 10}
-
 test_array.my_each_with_index {|x, y| puts "Item: #{x}, Item Index: #{y}"}
-
 p test_array.my_select {|num| num.even?}
-
 p test_array.my_all? {|num| num.even?}
-
 p test_array.my_any? {|num| num.even?}
-
 p test_array.my_none? {|num| num == 3}
-
-p test_array.my_count() {|num| num > 0}
+p test_array.my_count
+p test_array.my_count(3)
+p test_array.my_count {|num| num >= 3}
+p test_array.my_map {|x| "#{x} * 3 = #{3 * x}"}
 
