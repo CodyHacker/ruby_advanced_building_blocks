@@ -24,14 +24,10 @@ end
 
 
 
-
-
-
-
 p bubble_sort([4,-2,3,75,0,2,1])
 
-p bubble_sort_by(["hi","hello","hey","Mike", "a"]) { |left,right|
-    right.length - left.length 
+p bubble_sort_by(["hi","hello","hey","Mike", "to", "a"]) { |left,right|
+    right.length - left.length
 }
 
 
