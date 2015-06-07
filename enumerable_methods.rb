@@ -24,6 +24,15 @@ module Enumerable
       	return_array
       end
 
+      def my_all?
+      	my_each do |element|
+      		unless yield(element) 
+      			return false
+      		end
+      	end
+      	true
+      end
+
 end
 
 test_array.my_each {|x| puts x * 10}
@@ -31,3 +40,6 @@ test_array.my_each {|x| puts x * 10}
 test_array.my_each_with_index {|x, y| puts "Item: #{x}, Item Index: #{y}"}
 
 p test_array.my_select {|num| num.even?}
+
+p test_array.my_all? {|num| num > 6}
+
