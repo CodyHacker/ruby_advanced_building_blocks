@@ -1,4 +1,4 @@
-test_array = [1,2,3,4,5]
+
 
 module Enumerable
 
@@ -51,7 +51,21 @@ module Enumerable
       	true
       end
 
+      def my_count(item_to_count = nil)
+      	items_counted = 0
+      	if item_to_count
+      		self.my_each { |item| items_counted += 1 if item == item_to_count }
+      	elsif block_given?
+      		self.my_each { |item| items_counted += 1 if yield(item) }
+      	else
+      		items_counted = self.size
+      	end
+		items_counted
+      end
+
 end
+
+test_array = [1,2,3,4,5,3]
 
 test_array.my_each {|x| puts x * 10}
 
@@ -64,4 +78,6 @@ p test_array.my_all? {|num| num.even?}
 p test_array.my_any? {|num| num.even?}
 
 p test_array.my_none? {|num| num == 3}
+
+p test_array.my_count() {|num| num > 0}
 
