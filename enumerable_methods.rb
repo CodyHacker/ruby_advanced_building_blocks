@@ -1,4 +1,4 @@
-
+# Enumerable Methods
 
 module Enumerable
 
@@ -89,13 +89,23 @@ module Enumerable
       	return_array
       end
 
-
+      def my_map_proc_bloc(my_proc=nil)
+      	return_array = []
+      	if my_proc && block_given?
+      		self.to_a.my_each {|element| return_array << yield(my_proc.call(element))}
+      	elsif my_proc
+      		self.to_a.my_each {|element| return_array << my_proc.call(element)}
+      	end
+      	return_array
+      end
 
 end
 
 def multiply_els(elements)
 	elements.my_inject {|product, element| product * element}
 end
+
+# Some tests for the above methods
 
 test_array = [1,2,3,4,5,3]
 test_array.my_each {|x| puts x * 10}
@@ -128,8 +138,10 @@ p (5..10).my_inject { |product, n| product * n }
 my_proc = Proc.new {|x| "#{x} * 3 = #{3 * x}"} 
 p test_array.my_map_proc(my_proc)
 
-my_proc = Proc.new {|x| x**3} 
-p test_array.my_map_proc(my_proc)
+p test_array.my_map_proc_bloc
+
+my_proc = Proc.new {|x| x ** 3} 
+p test_array.my_map_proc_bloc(my_proc) {|x| x - 3 }
 
 
 
