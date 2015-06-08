@@ -69,11 +69,27 @@ module Enumerable
       	return_array
       end
 
-      def my_inject
-      	result_memo = self.to_a[0]
-      	self.to_a[1..-1].my_each { |element| result_memo = yield(result_memo, element)}
-      	return result_memo
+      def my_inject(initial=nil)
+      	if initial
+      		result_memo = initial
+      		start = 0
+      	else
+      		result_memo = self.to_a[0]
+      		start = 1
+      	end
+      	if block_given?
+      		self.to_a[start..-1].my_each { |element| result_memo = yield(result_memo, element)}
+      	end
+      	result_memo
       end
+
+      def my_map_proc(my_proc)
+      	return_array = []
+      	self.to_a.my_each {|element| return_array << my_proc.call(element)}
+      	return_array
+      end
+
+
 
 end
 
@@ -92,13 +108,29 @@ p test_array.my_none? {|num| num == 3}
 p test_array.my_count
 p test_array.my_count(3)
 p test_array.my_count {|num| num >= 3}
+
+
 p test_array.my_map {|x| "#{x} * 3 = #{3 * x}"} 
 p (5..10).my_map {|x| "#{x} * 3 = #{3 * x}"} 
-p test_array.my_inject { |sum, n| sum + n } 
+
+
+
+p test_array.my_inject { |sum, n| sum + n }
+
 p (5..10).my_inject { |sum, n| sum + n } 
 p multiply_els([2,4,5])
 p [2,4,5].my_inject { |sum, n| sum * n } 
 
 p ["a", "b", "c"].my_inject { |sum, n| sum + n } 
+
+p (5..10).my_inject { |product, n| product * n }
+
+my_proc = Proc.new {|x| "#{x} * 3 = #{3 * x}"} 
+p test_array.my_map_proc(my_proc)
+
+my_proc = Proc.new {|x| x**3} 
+p test_array.my_map_proc(my_proc)
+
+
 
 
