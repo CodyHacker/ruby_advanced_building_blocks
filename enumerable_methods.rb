@@ -69,28 +69,35 @@ module Enumerable
       	return_array
       end
 
-      def my_inject
-      	sum = 0
-      	self.to_a.my_each {|element| sum = yield(sum, element)}
-      	return sum
+      def my_inject(memo=1)
+      	self.to_a.my_each { |element, index| memo = yield(memo, element) }
+      	return memo
       end
 
 end
 
+def multiply_els(elements)
+	elements.my_inject {|product, element| product * element}
+end
+
 test_array = [1,2,3,4,5,3]
-test_array.my_each {|x| puts x * 10}
-puts " "
-(5..10).my_each {|x| puts x * 10}
-test_array.my_each_with_index {|x, y| puts "Item: #{x}, Item Index: #{y}"}
-p test_array.my_select {|num| num.even?}
-p test_array.my_all? {|num| num.even?}
-p test_array.my_any? {|num| num.even?}
-p test_array.my_none? {|num| num == 3}
-p test_array.my_count
-p test_array.my_count(3)
-p test_array.my_count {|num| num >= 3}
-p test_array.my_map {|x| "#{x} * 3 = #{3 * x}"} 
-p (5..10).my_map {|x| "#{x} * 3 = #{3 * x}"} 
-p test_array.my_inject { |sum, n| sum + n } 
-p (5..10).my_inject { |sum, n| sum + n } 
-p (5..10).inject { |sum, n| sum + n } 
+# test_array.my_each {|x| puts x * 10}
+# puts " "
+# (5..10).my_each {|x| puts x * 10}
+# test_array.my_each_with_index {|x, y| puts "Item: #{x}, Item Index: #{y}"}
+# p test_array.my_select {|num| num.even?}
+# p test_array.my_all? {|num| num.even?}
+# p test_array.my_any? {|num| num.even?}
+# p test_array.my_none? {|num| num == 3}
+# p test_array.my_count
+# p test_array.my_count(3)
+# p test_array.my_count {|num| num >= 3}
+# p test_array.my_map {|x| "#{x} * 3 = #{3 * x}"} 
+# p (5..10).my_map {|x| "#{x} * 3 = #{3 * x}"} 
+# p test_array.my_inject { |sum, n| sum + n } 
+# p (5..10).my_inject { |sum, n| sum + n } 
+# p (5..10).inject { |sum, n| sum + n } 
+ # p multiply_els([2,4,5])
+ p [2,4,5].my_inject { |sum, n| sum * n } 
+
+
