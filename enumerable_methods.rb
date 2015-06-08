@@ -124,7 +124,6 @@ p test_array.my_map {|x| "#{x} * 3 = #{3 * x}"}
 p (5..10).my_map {|x| "#{x} * 3 = #{3 * x}"} 
 
 
-
 p test_array.my_inject { |sum, n| sum + n }
 
 p (5..10).my_inject { |sum, n| sum + n } 
