@@ -23,7 +23,6 @@ def bubble_sort_by(my_array)
 end
 
 
-
 p bubble_sort([4,-2,3,75,0,2,1])
 
 p bubble_sort_by(["hi","hello","hey","Mike", "to", "a"]) { |left,right|
